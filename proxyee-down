@@ -14,6 +14,7 @@ package() {
   cd "${srcdir}"
   unzip -o proxyee-down-${pkgver}-jar.zip -d ${pkgdir}/opt
   echo "#!/bin/bash /n /usr/bin/java -jar ./proxyee-down.jar" > "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"
+  chmod o+rw -R "${pkgdir}/opt/${pkgname}-${pkgver}"
   chmod 755 "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"
   ln -s "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"  "${pkgdir}/usr/bin/${pkgname}" 
 }
