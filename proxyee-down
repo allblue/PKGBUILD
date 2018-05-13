@@ -1,8 +1,8 @@
-# Maintainer: Feng Feng <jhswx84@aliyun.com>
+# Maintainer: archblue <jhswx84@aliyun.com>
 pkgname=proxyee-down
 pkgver=2.53
 pkgrel=1
-pkgdesc="Baidu Pan client for Linux Desktop users"
+pkgdesc="基于HTTP代理的百度网盘不限速下载，SwitchyOmega设置请参见项目主页说明"
 arch=("any")
 url="https://github.com/monkeyWie/proxyee-down"
 license=('Apache License 2.0')
@@ -13,8 +13,9 @@ md5sums=('SKIP')
 package() {
   cd "${srcdir}"
   unzip -o proxyee-down-${pkgver}-jar.zip -d ${pkgdir}/opt
-  echo "#!/bin/bash /n /usr/bin/java -jar ./proxyee-down.jar" > "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"
-  chmod o+rw -R "${pkgdir}/opt/${pkgname}-${pkgver}"
-  chmod 755 "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"
-  ln -s "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"  "${pkgdir}/usr/bin/${pkgname}" 
+  cd "${pkgdir}/opt/${pkgname}-${pkgver}"
+  echo -e "#!/bin/bash \n /usr/bin/java -jar /opt/${pkgname}-${pkgver}/proxyee-down.jar" >  ${pkgname}
+  chmod o+rw -R  .
+  chmod 755 ${pkgname}
+  install -Dm 755 ${pkgname} ${pkgdir}/usr/bin/${pkgname}
 }
