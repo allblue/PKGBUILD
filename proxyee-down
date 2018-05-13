@@ -6,13 +6,14 @@ pkgdesc="Baidu Pan client for Linux Desktop users"
 arch=("any")
 url="https://github.com/monkeyWie/proxyee-down"
 license=('Apache License 2.0')
-depends=('	jre8-openjdk')
-source=("https://github.com/monkeyWie/proxyee-down/archive/${pkgver}.tar.gz")
+depends=('jre8-openjdk')
+source=("https://github.com/monkeyWie/proxyee-down/releases/download/${pkgver}/proxyee-down-${pkgver}-jar.zip")
 md5sums=('SKIP')
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgname}" install
-  sed  "s#./jre1.8.0_162/Contents/Home/bin/java#/bin/java#" ${pkgname}/start
-  ln -s ${pkgname}/start usr/bin/${pkgname}
+  cd "${srcdir}"
+  unzip -o proxyee-down-${pkgver}-jar.zip -d ${pkgdir}/opt
+  echo "#!/bin/bash /n /usr/bin/java -jar ./proxyee-down.jar" > "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"
+  chmod 755 "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"
+  ln -s "${pkgdir}/opt/${pkgname}-${pkgver}/${pkgname}"  "${pkgdir}/usr/bin/${pkgname}" 
 }
