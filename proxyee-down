@@ -1,0 +1,18 @@
+# Maintainer: Feng Feng <jhswx84@aliyun.com>
+pkgname=proxyee-down
+pkgver=2.53
+pkgrel=1
+pkgdesc="Baidu Pan client for Linux Desktop users"
+arch=("any")
+url="https://github.com/monkeyWie/proxyee-down"
+license=('Apache License 2.0')
+depends=('	jre8-openjdk')
+source=("https://github.com/monkeyWie/proxyee-down/archive/${pkgver}.tar.gz")
+md5sums=('SKIP')
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgname}" install
+  sed  "s#./jre1.8.0_162/Contents/Home/bin/java#/bin/java#" ${pkgname}/start
+  ln -s ${pkgname}/start usr/bin/${pkgname}
+}
